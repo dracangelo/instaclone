@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% comment %} {% load staticfiles custom_tags %} {% endcomment %}
+
+{% block body_class_override %}white{% endblock %}
+{% block content %}
+<div class="row auth-form">
+  <div class="col-xs-12">
+    <form action="{% url 'signup' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+       
+
+        <button class="btn btn-default">Register</button>
+        <div class="text-center help-text">
+          Already have an account? 
+        </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

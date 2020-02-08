@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-
+from . forms import UserCreateForm
 # Create your views here.
 def landing(request):
    
@@ -24,4 +24,6 @@ def signup(request):
             login(request, new_user)
             return redirect('index')
 
-    return render(request, 'signup.html')
+    return render(request, 'signup.html', {
+        'form': form
+    })
