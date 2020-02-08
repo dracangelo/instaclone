@@ -20,20 +20,3 @@ class UserCreateForm(UserCreationForm):
             user.save()
         return user
 
-
-# class PostPictureForm(ModelForm):
-#     class Meta:
-#         model = IGPost
-#         fields = ['title', 'image']
-
-
-# class ProfileEditForm(ModelForm):
-#     class Meta:
-#         model = UserProfile
-#         fields = ['profile_pic', 'description']
-
-
-# class CommentForm(ModelForm):
-#     class Meta:
-#         model = Comment
-#         fields = ['comment']
