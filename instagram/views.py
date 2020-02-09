@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from . forms import UserCreateForm
+from . forms import UserCreateForm, PostPictureForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from .models import Profile,Image,Comment,Like
 
 
 # Create your views here.
@@ -26,19 +27,43 @@ def signup(request):
             login(request, new_user)
             return redirect('home')
 
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'index.html', {'form': form})
 
 def login_user(request):
-    form = AuthenticationForm()
-
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('index')
+        form = AuthenticationForm(request=request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.info(request, f"You are now logged in as {username}")
+                return redirect('/')
+            else:
+                messages.error(request, "Invalid username or password.")
+        else:
+            messages.error(request, "Invalid username or password.")
+    form = AuthenticationForm()
+    return render(request = request,
+                    template_name = "login.html",
+                    context={"form":form})  
 
-    return render(request, 'login.html', {
-        'form': form
-    })   
+
+
+def search(request):
+    if 'search' in request.GET and request.GET['search']:
+        search_term = request.GET.get('search')
+        profiles = Profile.search_profile(search_term)
+        message = f'{search_term}'
+
+        return render(request, 'search.html',{'message':message, 'profiles':profiles})
+    else:
+        message = 'Enter term to search'
+        return render(request, 'search.html', {'message':message})
+
+
+def logout(request):
+    logout(request)
+    messages.info(request, "Logged out successfully!")
+    return render(request,'login.html')

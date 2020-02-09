@@ -20,3 +20,7 @@ class UserCreateForm(UserCreationForm):
             user.save()
         return user
 
+class PostPictureForm(ModelForm):
+    class Meta:
+        # model = IGPost
+        fields = ['title', 'image']
