@@ -1,1 +1,35 @@
-sdfsdfdsd
+{% extends 'base.html'%}
+{% load bootstrap3 %}
+{% block content %}
+{{bock.super}}
+
+    <!-- posts -->
+<div class="container">
+                
+      <!-- Looping through images   -->
+{%  for image in images %}
+      
+<!--Display images  -->
+<form class="form-inline md-form mr-auto mb-4">
+  <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+  <button class="btn btn-outline-warning btn-rounded btn-sm my-0" type="submit">explore</button>
+</form>
+
+</div>
+          
+  
+      
+{% empty %}
+<div class="row">
+<form class="form-inline md-form mr-auto mb-4">
+  <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+  <button class="btn btn-outline-warning btn-rounded btn-sm my-0" type="submit">explore</button>
+</form>
+<h2 class="text-center">There No users on that search term </h2>
+</div>
+{% endfor %}
+</div>       
+}
+
+
+{% endblock %}

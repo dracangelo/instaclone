@@ -14,7 +14,7 @@
             <form class="form-horizontal" role="form">
                 {% csrf_token %}
                 {{form.as_p}}
-                <button style="background-color:#F4EB16; color:blue" class="btn btn-outline-info" type="submit">Login</button>        
+                <a href="{% url 'signup_success' %}" <button style="background-color:#F4EB16; color:blue" class="btn btn-outline-info" type="submit">Login</button>  </a>      
             </form> <!-- /form -->
             {% comment %} Don't have an account? <a href="{% url 'index' %}" target="blank"><strong>register here</strong></a> {% endcomment %}
         </div> <!-- ./container -->
