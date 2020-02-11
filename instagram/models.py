@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 import datetime as dt
-
+from PIL import Image
 
 # # Create your models here.
 
@@ -31,14 +31,30 @@ class Comment(models.Model):
         return comments
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,)
-    profile_photo = models.ImageField(upload_to = 'ig/')
+    profile_photo = models.ImageField(default= 'static/icons/levi.png', upload_to = 'ig/')
     bio = models.TextField(max_length=255)
+    
+
+    def __str__(self):
+        return f'{self.user.username} Profile'
+
+        
     def save_profile(self):
         self.save()
+
+        profile_photo = Image.open(self.image.path)
+        #To resize the profile image
+        if image.height > 400 or image.width > 400:
+            output_size = (400, 400)
+            image.thumbnail(output_size)
+            image.save(self.image.path)
+
     def delete_profile(self):
         self.delete()
+
     def updateProfile(sender, **kwargs):
         if kwargs['created']:
             profile = Profile.objects.created(user=kwargs['instance'])
             post_save.connect(Profile, sender=User)
 
+    

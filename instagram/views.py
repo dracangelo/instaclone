@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .forms import UserCreateForm, ProfileForm, PostPictureForm
-from django.contrib.auth.forms import AuthenticationForm
+from .forms import UserCreateForm, PostPictureForm, UserUpdateForm, ProfileUpdateForm, CommentForm, ProfileForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Post, Comment, Profile
@@ -70,42 +70,85 @@ def signup_success(request):
     return render(request, 'signup_success.html')
 
 
-def success(request): 
-    return HttpResponse('successfully uploaded')
 
 
-def image_view(request): 
-  
+
+def image_form(request):
     if request.method == 'POST': 
         form = PostPictureForm(request.POST, request.FILES) 
   
         if form.is_valid(): 
-            form.save() 
-            return redirect('success') 
+            # form.save() 
+            messages.success(request, f'post created for !')
+            return redirect('profile') 
     else: 
         form = PostPictureForm() 
     return render(request, 'image_form.html', {'form' : form}) 
 
 
-def profile(request):
-    current_user = request.user
-    posts = Post.get_posts()
-    comments = Comment.get_comments()
-    return render(request, 'profile.html', {'current_user':current_user, 'posts':posts, 'comments':comments})
 
 
-def update_profile(request):
+
+def comment(request, image_id):
     current_user = request.user
-    # profile = Profile(User=request.user)
+    post = Image.objects.get(id=image_id)
+
     if request.method == 'POST':
-        form = ProfileForm(request.POST, instance=request.user)
+        form = CommentForm(request.POST, request.FILES)
         if form.is_valid():
-            profile = form.save(commit=False)
-            profile.user= current_user
-            profile.save()
-        return redirect('home')
-    # else:
-    #     # form = ProfileForm(instance=request.user.profile)
-    #     args = {}
-    #     args['form'] = form
-    return render(request, 'update_profile.html', {'current_user':current_user,})
+            comment_form = form.save(commit=False)
+            comment_form.user = current_user
+            comment_form.image = post
+            comment_form.save()
+
+    else:
+        form = CommentForm()
+    return render(request, 'detail.html', {"form": form, "post": post})
+
+# @login_required(login_url='/accounts/login/')
+def update_profile(request):
+    
+    if request.method == 'POST':
+        user_form = UserUpdateForm(request.POST)
+        profile_form = ProfileUpdateForm(request.POST, request.FILES)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect('profile')
+
+    else:
+        user_form = UserUpdateForm()
+        profile_form = ProfileUpdateForm()
+
+    context = {
+        'u_form': user_form,
+        'p_form': profile_form
+    }
+
+    return render(request, 'update_profile.html', context)
+
+
+# @login_required(login_url='/accounts/login/')                
+def profile(request):
+    if request.method == 'POST':
+        user_form = UserUpdateForm(request.POST)
+        profile_form = ProfileUpdateForm(request.POST, request.FILES)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect('profile')
+
+    else:
+        user_form = UserUpdateForm()
+        profile_form = ProfileUpdateForm()
+
+    context = {
+        'u_form': user_form,
+        'p_form': profile_form
+    }
+
+    return render(request, 'profile.html', context)

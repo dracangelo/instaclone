@@ -1,5 +1,6 @@
 {% extends 'base.html'%}
 {% load bootstrap3 %}
+{% load crispy_forms_tags %}
 {% block content %}
 
 
@@ -14,12 +15,16 @@
             <form class="form-horizontal" role="form" method="POST">
                 {% csrf_token %}
                 {{form.as_p}}
-                <a href="{% url 'signup_success' %}" <button style="background-color:#F4EB16; color:blue" class="btn btn-outline-info" type="submit">Login</button>  </a>      
-            </form> <!-- /form -->
-            {% comment %} Don't have an account? <a href="{% url 'index' %}" target="blank"><strong>register here</strong></a> {% endcomment %}
+                 <button class="btn btn-info" type="submit">Login</button>
+                </form> <!-- /form -->
+            {% comment %} <p><small class="text-muted">Already have an account?<a href="{% url 'home'%}">Sign In</a></small></p> {% endcomment %}
         </div> <!-- ./container -->
 
       
 
 
 {% endblock %}
+
+
+      
+            

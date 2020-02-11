@@ -1,5 +1,7 @@
 from django.conf.urls import url
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns=[
     url(r'^$',views.landing,name='landing'),
@@ -8,11 +10,12 @@ urlpatterns=[
     url(r'^search/$', views.search, name='search'),
     url(r'^signup_success/$', views.signup_success, name='signup_success'),
     url(r'^profile/$', views.profile, name='profile'),
-    url(r'^update_profile/$', views.update_profile, name='update_profile'),
-    
+    url(r'^update_profile/$', views.update_profile, name='update_profile'),    
+    url(r'^comment/(?P<image_id>\d+)/$',views.comment,name='comment'),
+    url(r'^image_form/$', views.image_form, name='image_form'),
     
     
 ]
 
-# if settings.DEBUG:
-    # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
