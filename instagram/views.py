@@ -67,11 +67,11 @@ def search(request):
         message = 'Enter term to search'
         return render(request, 'search.html', {'message':message})
 
-@login_required(login_url='/accounts/login/')
-def logout(request):
-    logout(request)
-    messages.info(request, "Logged out successfully!")
-    return redirect("login")
+# @login_required(login_url='/accounts/login/')
+# def logout(request):
+#     logout(request)
+#     messages.info(request, "Logged out successfully!")
+#     return redirect("login")
 
 
 
