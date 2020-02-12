@@ -1,40 +1,19 @@
-{% extends 'layout.html'%}
+{% extends 'base.html'%}
 {% load bootstrap3 %}
 {% load crispy_forms_tags %}
 {% block content %}
 
 
-
-<div class="container dree">
-<h1>insta</h1>
-</div>
-
-<div class="drac container">
-
-
-<div class="container">
-<div class="card mb-3" >
-  <div class="row no-gutters">
-    <div class="col-md-4">
-      <img src="https://images.pexels.com/photos/799443/pexels-photo-799443.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" class="card-img" alt="...">
+{% for Image in image %}
+    
+    <div class="card container drac img-fluid "  >
+    <h1 class="card-header">{{user.username}}</h1>
+    <img class="card-img-top" src="{{ Image.image.url }}" alt="Card image cap">
+    <div class="card-body">
+    <i class="far fa-heart fa-2x"></i>
+    <a href="{% url 'post_detail' %}"><i class="fa fa-commenting-o fa-2x" aria-hidden="true"></i></a>
+    <p class="card-text">{{ Image.caption }}</p>
     </div>
-    <div class="col-md-8">
-      <div class="card-body">
-         <form class="form-horizontal" role="form" method="POST">
-                {% csrf_token %}
-                {{ form | crispy}}
-                <button class="btn btn-info" type="submit">register</button>
-          </form>
-          Already have an account? <a href="{% url 'login' %}">login</a></p>
-      </div>
     </div>
-  </div>
-</div>
-</div>
-
-      
-
-</div>
-{% endblock %}
-
-
+{% endfor %}
+{% endblock content %}

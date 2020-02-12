@@ -11,7 +11,7 @@ urlpatterns=[
     url(r'^profile/$', views.profile, name='profile'),
     url(r'^update_profile/$', views.update_profile, name='update_profile'),
     url(r'^image_form/$', views.image_form, name='image_form'),
-    url(r'^home/$', views.home, name='home'),
+    # url(r'^home/$', views.home, name='home'),
     url(r'^post_detail/$', views.post_detail, name='post_detail')
 ]
 

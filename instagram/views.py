@@ -13,16 +13,9 @@ from .models import Post, Comment, Profile, Image
 # Create your views here.
 
 def landing(request):
-    if request.method == 'POST':
-        form = UserCreateForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            messages.success(request, f'Account created for {username}!')
-            return redirect('login')
-    else:
-        form = UserCreateForm()
-    return render(request, 'index.html', {'form': form})
+    image = Post.objects.all()
+  
+    return render(request,'index.html', {'image': image})
 
 def login_user(request):
     if request.method == 'POST':
@@ -45,7 +38,7 @@ def login_user(request):
                     context={"form":form})  
 
 
-# @login_required(login_url='/accounts/login/')
+@login_required(login_url='/accounts/login/')
 def search(request):
     if 'search' in request.GET and request.GET['search']:
         search_term = request.GET.get('search')
@@ -57,7 +50,7 @@ def search(request):
         message = 'Enter term to search'
         return render(request, 'search.html', {'message':message})
 
-# @login_required(login_url='/accounts/login/')
+@login_required(login_url='/accounts/login/')
 def logout(request):
     logout(request)
     messages.info(request, "Logged out successfully!")
@@ -69,7 +62,7 @@ def logout(request):
 
 
 
-# @login_required(login_url='/accounts/login/')
+@login_required(login_url='/accounts/login/')
 def image_form(request):
 
     if request.method == 'POST': 
@@ -77,23 +70,23 @@ def image_form(request):
   
         if form.is_valid():
             form.save()
-            return redirect('home') 
+            return redirect('index') 
     else: 
         form = PostPictureForm() 
     return render(request, 'image_form.html', {'form' : form}) 
 
 
 # @login_required(login_url='/accounts/login/')
-def home(request):
-    image = Image.objects.all()
+# def home(request):
+#     image = Post.objects.all()
   
-    return render(request,'home.html', {'image': image})
+#     return render(request,'home.html', {'image': image})
 
 
 
 
 
-# @login_required(login_url='/accounts/login/')
+@login_required(login_url='/accounts/login/')
 def update_profile(request):
     
     if request.method == 'POST':
@@ -118,7 +111,7 @@ def update_profile(request):
     return render(request, 'update_profile.html', context)
 
 
-# @login_required(login_url='/accounts/login/')                
+@login_required(login_url='/accounts/login/')                
 def profile(request):
     
     return render(request, 'profile.html',)
