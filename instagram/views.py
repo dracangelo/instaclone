@@ -13,9 +13,10 @@ from .models import Post, Comment, Profile, Image
 # Create your views here.
 
 def landing(request):
-    image = Post.objects.all()
+    image = Image.objects.all()
   
     return render(request,'index.html', {'image': image})
+
 
 def login_user(request):
     if request.method == 'POST':
@@ -38,6 +39,22 @@ def login_user(request):
                     context={"form":form})  
 
 
+
+@login_required(login_url='/accounts/login/')
+def image_form(request):
+
+    if request.method == 'POST': 
+        form = PostPictureForm(request.POST, request.FILES) 
+  
+        if form.is_valid():
+            form.save()
+            return redirect('landing') 
+    else: 
+        form = PostPictureForm() 
+    return render(request, 'image_form.html', {'form' : form}) 
+
+
+
 @login_required(login_url='/accounts/login/')
 def search(request):
     if 'search' in request.GET and request.GET['search']:
@@ -55,34 +72,6 @@ def logout(request):
     logout(request)
     messages.info(request, "Logged out successfully!")
     return redirect("login")
-
-
-
-
-
-
-
-@login_required(login_url='/accounts/login/')
-def image_form(request):
-
-    if request.method == 'POST': 
-        form = PostPictureForm(request.POST, request.FILES) 
-  
-        if form.is_valid():
-            form.save()
-            return redirect('index') 
-    else: 
-        form = PostPictureForm() 
-    return render(request, 'image_form.html', {'form' : form}) 
-
-
-# @login_required(login_url='/accounts/login/')
-# def home(request):
-#     image = Post.objects.all()
-  
-#     return render(request,'home.html', {'image': image})
-
-
 
 
 
