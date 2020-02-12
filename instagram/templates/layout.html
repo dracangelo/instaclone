@@ -15,9 +15,9 @@
     />
     <script src="https://kit.fontawesome.com/2ae247d80b.js" crossorigin="anonymous"></script>
     {% if title %}
-    <title>Insta {{title}}</title>
+    <title>Instagram {{title}}</title>
     {% else %}
-      <title> Insta </title>
+      <title> Instagram </title>
     {% endif %}
 
     {% block styles %}
@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
   {% endblock %}
 <body>
-    {% include "navbar.html" %}
+   
     {% block content %} 
     {% endblock%}
 

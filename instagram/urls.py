@@ -8,13 +8,11 @@ urlpatterns=[
     url(r'^login/$', views.login_user, name='login'),
     url(r'^logout/$', views.logout, name='logout'),
     url(r'^search/$', views.search, name='search'),
-    url(r'^signup_success/$', views.signup_success, name='signup_success'),
     url(r'^profile/$', views.profile, name='profile'),
-    url(r'^update_profile/$', views.update_profile, name='update_profile'),    
-    url(r'^comment/(?P<image_id>\d+)/$',views.comment,name='comment'),
+    url(r'^update_profile/$', views.update_profile, name='update_profile'),
     url(r'^image_form/$', views.image_form, name='image_form'),
-    
-    
+    url(r'^home/$', views.home, name='home'),
+    url(r'^post_detail/$', views.post_detail, name='post_detail')
 ]
 
 if settings.DEBUG:

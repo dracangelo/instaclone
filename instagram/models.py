@@ -8,10 +8,8 @@ from PIL import Image
 
 
 class Post(models.Model):
-    caption = models.CharField(max_length=60)
-    user = models.ForeignKey(User, on_delete=models.CASCADE,)
-    date_posted = models.DateField(default=timezone.now)
-    image = models.ImageField(upload_to = 'ig/', null = True, blank = True)
+    user=models.ForeignKey(User, on_delete=models.CASCADE,null=True)   
+    image = models.ImageField(upload_to = 'ig/', null=False)
     @classmethod
     def get_posts(cls):
         posts = cls.objects.all()
@@ -20,6 +18,14 @@ class Post(models.Model):
         self.save()
     def delete_post(self):
         self.delete()
+
+class Image(models.Model):
+    name = models.CharField(max_length=50)
+    image = models.ImageField()
+    caption = models.CharField(max_length=300)
+    date_posted = models.DateField(default=timezone.now)
+    
+
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE,)
     user = models.ForeignKey(User, on_delete=models.CASCADE,)
@@ -29,10 +35,12 @@ class Comment(models.Model):
     def get_comments(cls):
         comments = cls.objects.all()
         return comments
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,)
-    profile_photo = models.ImageField(default= 'static/icons/levi.png', upload_to = 'ig/')
-    bio = models.TextField(max_length=255)
+    profile_photo = models.ImageField(default= 'levi.png', upload_to = 'ig/')
+    bio = models.TextField(max_length=300)
     
 
     def __str__(self):
@@ -58,3 +66,4 @@ class Profile(models.Model):
             post_save.connect(Profile, sender=User)
 
     
+

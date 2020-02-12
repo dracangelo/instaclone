@@ -1,17 +1,31 @@
 {% extends 'base.html'%}
 {% load bootstrap3 %}
-
+{% include "navbar.html" %}
 {% block content %}
+    <div class="container">
     <div class="row">
         <p class="success-message">
-            Welcome to Instagram {{ user.username }}
+            Welcome to Insta {{ user.username }}
         </p>
     </div>
-    <div class="container">
-    <form method = "post" enctype="multipart/form-data"> 
-        {% csrf_token %} 
-        {{ form.as_p }} 
-        <button type="submit">Upload</button> 
-    </form>
+  <div class="profile d-flex justify-content-center mt-5">
+    <div class="profile-pic">
+      <img src="{{user.profile_photo.image.url}}" class="rounded-circle" alt="" width="100px"/>
     </div>
-{% endblock %}
+    <div class="data">
+      <div class="profile-info d-flex align-items-center">
+        <h2>{{user.username}}</h2>
+        <p class="px-3 edit"><a href="{% url 'update_profile' %}">Edit Profile</a></p>
+      </div>
+      <p>{{user.email}}</p>
+      <div class="profile-data d-flex">
+        <p>0 posts</p>
+        <p class="px-3">0 follower</p>
+        <p>0 following</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 
+
+{% csrf_token %} 

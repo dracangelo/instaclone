@@ -1,0 +1,19 @@
+{% extends 'base.html'%}
+{% load bootstrap3 %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+{% for Image in image %}
+    
+    <div class="card" >
+    <h1 class="card-header">{{user.username}}</h1>
+    <img class="card-img-top" src="{{ Image.image.url }}" alt="Card image cap">
+    <div class="card-body">
+    <i class="far fa-heart fa-2x"></i>
+    <a href="{% url 'post_detail' %}"><i class="fa fa-commenting-o fa-2x" aria-hidden="true"></i></a>
+    <p class="card-text">{{ Image.caption }}</p>
+    </div>
+    </div>
+{% endfor %}
+{% endblock content %}

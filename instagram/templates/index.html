@@ -1,35 +1,36 @@
-{% extends 'base.html'%}
+{% extends 'layout.html'%}
 {% load bootstrap3 %}
-
 {% load crispy_forms_tags %}
 {% block content %}
 
 
 
+<div class="container dree">
+<h1>insta</h1>
+</div>
+
 <div class="drac container">
 
 
-<div class="card mb-3" style="max-width: 540px;" >
+<div class="container">
+<div class="card mb-3" >
   <div class="row no-gutters">
     <div class="col-md-4">
       <img src="https://images.pexels.com/photos/799443/pexels-photo-799443.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" class="card-img" alt="...">
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        <div class="container">
-            <form class="form-horizontal" role="form" method="POST">
-            {% csrf_token %}
-                <h2>sign up</h2>
+         <form class="form-horizontal" role="form" method="POST">
+                {% csrf_token %}
                 {{ form | crispy}}
-                
-                <a class="ml-2" href="{% url 'login' %}"><button type="submit" class="btn btn-primary btn-block">Register</button></a>
-                  <div class="card">
-                    <div class="card-body">
-                        <p>Already have an account?</p><a class="ml-2" href="{% url 'login' %}">login</a>
-                    </div>
-                    </div>
-            </form> <!-- /form -->
-        </div> <!-- ./container -->
+                <button class="btn btn-info" type="submit">register</button>
+          </form>
+          Already have an account? <a href="{% url 'login' %}">login</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 
       
 

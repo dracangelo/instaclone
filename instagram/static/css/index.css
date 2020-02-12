@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Numans');
-
+@import url('https://fonts.googleapis.com/css?family=PT+Sans:400,700&display=swap');
 
 *[role="form"] {
     max-width: 530px;
@@ -21,7 +21,7 @@
 }
 /* Made with love by Mutiullah Samim*/
 
-@import url('https://fonts.googleapis.com/css?family=Numans');
+
 #drac{
 background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');
 background-size: cover;
@@ -30,84 +30,83 @@ height: 100%;
 font-family: 'Numans', sans-serif;
 }
 
-.container{
+/* .container{
 height: 100%;
 align-content: center;
-}
-
-/* .card{
-height: 370px;
-margin-top: auto;
-margin-bottom: auto;
-width: 400px;
-background-color: rgba(0,0,0,0.5) !important;
 } */
 
-.social_icon span{
-font-size: 60px;
-margin-left: 10px;
-color: #FFC312;
-}
-
-.social_icon span:hover{
-color: white;
-cursor: pointer;
-}
-
-.card-header h3{
-color: white;
-}
-
-.social_icon{
-position: absolute;
-right: 20px;
-top: -45px;
-}
-
-.input-group-prepend span{
-width: 50px;
-background-color: #FFC312;
-color: black;
-border:0 !important;
-}
-
-input:focus{
-outline: 0 0 0 0  !important;
-box-shadow: 0 0 0 0 !important;
-
-}
-
-.remember{
-color: white;
-}
-
-.remember input
-{
-width: 20px;
-height: 20px;
-margin-left: 15px;
-margin-right: 5px;
-}
-
-.login_btn{
-color: black;
-background-color: #FFC312;
-width: 100px;
-}
-
-.login_btn:hover{
-color: black;
-background-color: white;
-}
-
-.links{
-color: white;
-}
-
-.links a{
-margin-left: 4px;
-}
 
 .drac {
     float: right 10%;
 }
+
+
+.slider {
+    width: 400px;
+    height: 400px;
+    background: url("https://bit.ly/2HgbFGU") no-repeat center center/cover;
+    animation: slide 15s infinite;
+    border-radius: 5px;
+  }
+  
+  @keyframes slide {
+    25% {
+      background: url("https://bit.ly/2HgbFGU") no-repeat center center/cover;
+    }
+    50% {
+      background: url("https://wallpapercave.com/wp/wp2470466.jpg") no-repeat center center/cover;
+    }
+    75% {
+      background: url("https://bit.ly/2SfdBpv") no-repeat center center/cover;
+    }
+    100% {
+      background: url("https://bit.ly/2OKDpaZ") no-repeat center center/cover;
+    }
+  }
+  
+  .slider-box {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+.home {
+    display: flex;
+    margin: 1rem 0;
+    align-items: center;
+  
+  }
+  .insta-icon {
+    padding: 0 1rem;
+    border-right: 2px solid #000
+  }
+  
+  .insta-functions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+  .insta-heart {
+    padding: 0 2rem;
+  }
+  
+  .insta-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+  }
+  
+  .main {
+    border-bottom: 2px solid #d3d3d3;
+  }
+  
+  .insta-nav a {
+    color: #000;
+    text-decoration: none;
+  }

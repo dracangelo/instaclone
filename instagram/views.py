@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from .forms import UserCreateForm, PostPictureForm, UserUpdateForm, ProfileUpdateForm, CommentForm, ProfileForm
+from .forms import UserCreateForm, PostPictureForm, UserUpdateForm, ProfileUpdateForm, CommentForm
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Post, Comment, Profile
+from .models import Post, Comment, Profile, Image
 
 
 
@@ -34,7 +34,7 @@ def login_user(request):
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {username}")
-                return redirect('signup_success.html')
+                return redirect('profile.html')
             else:
                 messages.error(request, "Invalid username or password.")
         else:
@@ -45,7 +45,7 @@ def login_user(request):
                     context={"form":form})  
 
 
-
+# @login_required(login_url='/accounts/login/')
 def search(request):
     if 'search' in request.GET and request.GET['search']:
         search_term = request.GET.get('search')
@@ -57,53 +57,41 @@ def search(request):
         message = 'Enter term to search'
         return render(request, 'search.html', {'message':message})
 
-
+# @login_required(login_url='/accounts/login/')
 def logout(request):
     logout(request)
     messages.info(request, "Logged out successfully!")
     return redirect("login")
 
 
-def signup_success(request):
-
-     
-    return render(request, 'signup_success.html')
 
 
 
 
 
+# @login_required(login_url='/accounts/login/')
 def image_form(request):
+
     if request.method == 'POST': 
         form = PostPictureForm(request.POST, request.FILES) 
   
-        if form.is_valid(): 
-            # form.save() 
-            messages.success(request, f'post created for !')
-            return redirect('profile') 
+        if form.is_valid():
+            form.save()
+            return redirect('home') 
     else: 
         form = PostPictureForm() 
     return render(request, 'image_form.html', {'form' : form}) 
 
 
+# @login_required(login_url='/accounts/login/')
+def home(request):
+    image = Image.objects.all()
+  
+    return render(request,'home.html', {'image': image})
 
 
 
-def comment(request, image_id):
-    current_user = request.user
-    post = Image.objects.get(id=image_id)
 
-    if request.method == 'POST':
-        form = CommentForm(request.POST, request.FILES)
-        if form.is_valid():
-            comment_form = form.save(commit=False)
-            comment_form.user = current_user
-            comment_form.image = post
-            comment_form.save()
-
-    else:
-        form = CommentForm()
-    return render(request, 'detail.html', {"form": form, "post": post})
 
 # @login_required(login_url='/accounts/login/')
 def update_profile(request):
@@ -132,23 +120,27 @@ def update_profile(request):
 
 # @login_required(login_url='/accounts/login/')                
 def profile(request):
+    
+    return render(request, 'profile.html',)
+
+
+
+
+def post_detail(request):
+    template_name = 'post_detail.html'
+    # post = get_object_or_404(Post)
+    posts = Post.objects.all()    
+    new_comment = None
+    # Comment posted
     if request.method == 'POST':
-        user_form = UserUpdateForm(request.POST)
-        profile_form = ProfileUpdateForm(request.POST, request.FILES)
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
 
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
-            messages.success(request, f'Your account has been updated!')
-            return redirect('profile')
-
+            new_comment = form.save(commit=False)
+            new_comment.user = request.user
+            new_comment.topic = topic
+            form.save()
     else:
-        user_form = UserUpdateForm()
-        profile_form = ProfileUpdateForm()
+        comment_form = CommentForm()
 
-    context = {
-        'u_form': user_form,
-        'p_form': profile_form
-    }
-
-    return render(request, 'profile.html', context)
+    return render(request, template_name, {'posts': posts,  'new_comment': new_comment, 'comment_form': comment_form})
