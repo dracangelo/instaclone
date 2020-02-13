@@ -34,13 +34,11 @@ def login_user(request):
         else:
             messages.error(request, "Invalid username or password.")
     form = AuthenticationForm()
-    return render(request = request,
-                    template_name = "login.html",
-                    context={"form":form})  
+    return render(request = request, template_name = "registration/login.html", context={"form":form})  
 
 
 
-@login_required(login_url='/accounts/login/')
+@login_required
 def image_form(request):
 
     if request.method == 'POST': 
@@ -55,7 +53,7 @@ def image_form(request):
 
 
 
-@login_required(login_url='/accounts/login/')
+@login_required
 def search(request):
     if 'search' in request.GET and request.GET['search']:
         search_term = request.GET.get('search')
@@ -67,7 +65,7 @@ def search(request):
         message = 'Enter term to search'
         return render(request, 'search.html', {'message':message})
 
-# @login_required(login_url='/accounts/login/')
+# @login_required
 # def logout(request):
 #     logout(request)
 #     messages.info(request, "Logged out successfully!")
@@ -75,7 +73,7 @@ def search(request):
 
 
 
-@login_required(login_url='/accounts/login/')
+@login_required
 def update_profile(request):
     
     if request.method == 'POST':
@@ -100,7 +98,7 @@ def update_profile(request):
     return render(request, 'update_profile.html', context)
 
 
-@login_required(login_url='/accounts/login/')                
+@login_required               
 def profile(request):
     
     return render(request, 'profile.html',)

@@ -36,9 +36,11 @@ align-content: center;
 } */
 
 
-.drac {
-    float: right 10%;
-}
+/* .drac {
+    float: right 50%;
+    justify-self: center;
+    align-items: center;
+} */
 
 
 .slider {

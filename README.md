@@ -1,3 +1,5 @@
+# Insta
+
 
 ## Description
 - This is a basic django based Project. It is a clone of th famous instagram app. A user basically can do his usual activities that they do in instagram application. They can view posts from different users, Upload pictures of their choices from their local machines. A user can also comment on pictures and like differnt pictures.
