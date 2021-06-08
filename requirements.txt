@@ -10,7 +10,7 @@ django-humanize==0.1.2
 django-registration==2.4.1
 gunicorn==20.0.4
 humanize==1.0.0
-Pillow==7.0.0
+Pillow==8.2.0
 psycopg2==2.8.4
 pycodestyle==2.5.0
 python-decouple==3.3
